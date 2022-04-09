@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.skilldistillery.mvcfilmsite.data.FilmDAO;
+import com.skilldistillery.mvcfilmsite.entities.Film;
 
 @Controller
 public class FilmController {
@@ -20,10 +21,10 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "findByID.do", method = RequestMethod.GET)
-	public ModelAndView findByID(String id) {
+	public ModelAndView findByID(int id) {
 		ModelAndView mv = new ModelAndView();
-
-		mv.setViewName("NewStateResult");
+		
+		mv.setViewName("newFilm");
 
 		return mv;
 	}
