@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.skilldistillery.advancedrequesthandling.data.State;
 import com.skilldistillery.mvcfilmsite.data.FilmDAO;
 import com.skilldistillery.mvcfilmsite.entities.Film;
 
@@ -111,9 +110,6 @@ public class FilmController {
 		
 		mv.setViewName("WEB-INF/result.jsp");
 		
-		
-		
->>>>>>> 5f521b79d848b878e8d7abd15cc94a6560e0779a
 		return mv;
 	}
 }
