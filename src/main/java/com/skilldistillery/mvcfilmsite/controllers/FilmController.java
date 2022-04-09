@@ -24,7 +24,9 @@ public class FilmController {
 	public ModelAndView findByID(int id) {
 		ModelAndView mv = new ModelAndView();
 		
-		mv.setViewName("newFilm");
+		Film film = filmDao.findFilmById(id);
+		mv.addObject("film", film);
+		mv.setViewName("WEB-INF/result.jsp");
 
 		return mv;
 	}
