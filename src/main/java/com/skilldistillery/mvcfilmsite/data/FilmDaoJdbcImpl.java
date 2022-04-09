@@ -291,14 +291,25 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
-			conn.setAutoCommit(false); // START TRANSACTION
-			String sql = "DELETE FROM film_actor WHERE actor_id = ?";
+			
+			conn.setAutoCommit(false);
+			
+			
+			String sql = "DELETE FROM film_actor WHERE film_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, actor.getId());
+			
+			stmt.setInt(1, film.getId());
+			
 			int updateCount = stmt.executeUpdate();
-			sql = "DELETE FROM actor WHERE id = ?";
+			sql = "DELETE FROM film WHERE id = ?";
+			
+			
+			
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, actor.getId());
+			
+			
+			
+			stmt.setInt(1, film.getId());
 			updateCount = stmt.executeUpdate();
 			conn.commit(); // COMMIT TRANSACTION
 		} catch (SQLException sqle) {
