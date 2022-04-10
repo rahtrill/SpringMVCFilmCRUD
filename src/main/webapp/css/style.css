@@ -4,7 +4,8 @@ body {
 	
 }
 h1{
-	font-size: 18px;
+	font-size: 20px;
+	color: Dark blue;
 }
 a{
 	color:#000000;
@@ -15,8 +16,9 @@ a:hover {
 	text-decoration: none;
 }
 h2{
-	font-size: 16px;
+	font-size: 18px;
+	color: Dark blue;
 }
 p{
-	font-size: 14px;
+	font-size: 15px;
 }
