@@ -283,6 +283,8 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		return true;
 	}
 // we changed parameter to int id ***
+	
+	
 	@Override
 	public boolean deleteFilm(int id) {
 
@@ -290,6 +292,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 
 		Connection conn = null;
 		try {
+			
 			conn = DriverManager.getConnection(URL, user, pass);
 			
 			conn.setAutoCommit(false);
