@@ -35,7 +35,17 @@
 
 	</c:choose>
 
+<c:choose>
 
+<c:when test="${film.id <= 1000}">
+You failed
+</c:when>
+
+<c:otherwise>
+You made it buddy
+</c:otherwise>
+
+</c:choose>
 
 
 </body>
