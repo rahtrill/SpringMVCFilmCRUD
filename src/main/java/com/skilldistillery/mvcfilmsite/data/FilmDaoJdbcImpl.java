@@ -134,8 +134,9 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		return actorList;
 	}
 
-	public Film findFilmByKeyword(String input) {
+	public List<Film> findFilmByKeyword(String input) {
 		Film fm = null;
+		List<Film> filmList = new ArrayList<>();
 		Connection conn;
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
@@ -162,6 +163,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				int languageId = fm.getLanguageId();
 				fm.setActorList(findActorsByFilmId(filmId));
 				fm.setLanguageList(languageFromId(languageId));
+				filmList.add(fm);
 				System.out.println("Title: " + fm.getTitle() + ", Release Year: " + fm.getReleaseYear() + ", Rating: "
 						+ fm.getRating() + ", Descripton: " + fm.getDescription());
 				System.out.println(fm.getLanguageList());
@@ -177,7 +179,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			System.err.println("Invalid Response");
 		}
 
-		return fm;
+		return filmList;
 	}
 
 	public Language languageFromId(int idForLanguage) {

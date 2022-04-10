@@ -13,7 +13,7 @@ public interface FilmDAO {
 
 	public List<Actor> findActorsByFilmId(int filmId);
 
-	public Film findFilmByKeyword(String input);
+	public List<Film> findFilmByKeyword(String input);
 
 	public Language languageFromId(int idForLanguage);
 
