@@ -132,16 +132,10 @@ public class FilmController {
 
 		return mv;
 	}
-<<<<<<< HEAD
-	
-	
-	@RequestMapping(path="filmAdded.do", method = RequestMethod.GET)
-	public ModelAndView filmAdded (Film film) {
-=======
 
 	@RequestMapping(path = "filmAdded.do", method = RequestMethod.GET)
 	public ModelAndView filmAdded(Film film) {
->>>>>>> 1ad06babcd049b7bdcb38e1d578f7be6c231bbaa
+
 		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("WEB-INF/result.jsp");
