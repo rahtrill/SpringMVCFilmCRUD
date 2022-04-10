@@ -282,9 +282,9 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 
 		return true;
 	}
-
+// we changed parameter to int id ***
 	@Override
-	public boolean deleteFilm(Film film) {
+	public boolean deleteFilm(int id) {
 
 		// Use if statement to determine if film id is less than 100 tio
 
@@ -298,7 +298,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			String sql = "DELETE FROM film_actor WHERE film_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
-			stmt.setInt(1, film.getId());
+			stmt.setInt(1, id);
 			
 			int updateCount = stmt.executeUpdate();
 			sql = "DELETE FROM film WHERE id = ?";
@@ -309,7 +309,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			
 			
 			
-			stmt.setInt(1, film.getId());
+			stmt.setInt(1, id);
 			updateCount = stmt.executeUpdate();
 			conn.commit(); // COMMIT TRANSACTION
 		} catch (SQLException sqle) {
