@@ -111,10 +111,7 @@ public class FilmController {
 		film.setReplacementCost(replacementCost);
 		film.setRating(rating);
 		film.setSpecialFeatures(specialFeatures);
-	
 
-		
-		
 		filmDao.updateFilm(film);
 
 		redir.addFlashAttribute("film", film);
@@ -124,10 +121,11 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "deleteFilm.do", method = RequestMethod.POST)
-	public ModelAndView deleteFilm(Film film, RedirectAttributes redir) {
+	public ModelAndView deleteFilm(int id, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 
-		filmDao.deleteFilm(film);
+		Film film = filmDao.findFilmById(id);
+		filmDao.deleteFilm(id);
 
 		redir.addFlashAttribute("film", film);
 		mv.setViewName("redirect:filmDeleted.do");
