@@ -13,7 +13,8 @@
 	<form action="updateFilm.do" method="POST">
 
 		<h1>Update a Film</h1>
-
+		
+		
 		Change any of the following fields of your film:
 		
 		<br>
@@ -21,8 +22,8 @@
 		(If any of the fields need to be kept the same, do not change them).
 		
 		<br>
-		
-		Name: <input type="text" name="name" value="${film.title}"/> 
+		<input type="hidden" name="id" value="${film.id}"/>
+		Name: <input type="text" name="title" value="${film.title}"/> 
 		<br> 
 		Description: <input type="text" name="description" value="${film.description}"/>
 		<br> 

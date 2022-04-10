@@ -57,6 +57,9 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				fm.setActorList(findActorsByFilmId(filmId));
 				fm.setLanguageList(languageFromId(languageId));
 
+				
+				
+				System.out.println("ID: " + fm.getId());
 				System.out.println("Title: " + fm.getTitle() + ", Release Year: " + fm.getReleaseYear() + ", Rating: "
 						+ fm.getRating() + ", Descripton: " + fm.getDescription());
 				System.out.println(fm.getLanguageList());
@@ -206,17 +209,26 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 	public Film createFilm(Film film) {
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
-			String sql = "INSERT INTO film " + " (title, description, release_year, rating, length, language_id) "
+			String sql = "INSERT INTO film " + " (title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features) "
 			// TODO: Add the rest of the film properties
-					+ "VALUES (?, ?, ?, ?, ?, ?)";
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setInt(3, film.getReleaseYear());
-			stmt.setString(4, film.getRating());
-			stmt.setInt(5, film.getLength());
-			stmt.setInt(6, film.getLanguageId());
-
+			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRentalRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplacementCost());
+			stmt.setString(9, film.getRating());
+			stmt.setString(10, film.getSpecialFeatures());
+			
+			
+			
+			
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 				ResultSet rs = stmt.getGeneratedKeys();
@@ -245,17 +257,34 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
 
-			String sql = "UPDATE film SET title = ?, description = ?, release_year = ?, language_id = ?, rental_duration = ?, rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, special_feature = ?  "
+			String sql = "UPDATE film SET title = ?, description = ?, release_year = ?, language_id = ?, rental_duration = ?, rental_rate = ?, length = ?, replacement_cost = ?, rating = ?, special_features = ?"
 					+ " WHERE id= ?";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getReleaseYear());
+			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRentalRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplacementCost());
+			stmt.setString(9, film.getRating());
+			stmt.setString(10, film.getSpecialFeatures());
+			
+			stmt.setInt(11, film.getId());
+
+			
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
 
 				sql = "DELETE FROM film_actor WHERE film_id = ?";
 				stmt = conn.prepareStatement(sql);
-
+				stmt.setInt(1, film.getId());
+				System.out.println(film.getId());
+				
+				
 				updateCount = stmt.executeUpdate();
 				sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
 				stmt = conn.prepareStatement(sql);
@@ -283,6 +312,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		return true;
 	}
 // we changed parameter to int id ***
+
 	@Override
 	public boolean deleteFilm(int id) {
 
@@ -290,25 +320,21 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 
 		Connection conn = null;
 		try {
+
 			conn = DriverManager.getConnection(URL, user, pass);
-			
+
 			conn.setAutoCommit(false);
-			
-			
+
 			String sql = "DELETE FROM film_actor WHERE film_id = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			
+
 			stmt.setInt(1, id);
-			
+
 			int updateCount = stmt.executeUpdate();
 			sql = "DELETE FROM film WHERE id = ?";
-			
-			
-			
+
 			stmt = conn.prepareStatement(sql);
-			
-			
-			
+
 			stmt.setInt(1, id);
 			updateCount = stmt.executeUpdate();
 			conn.commit(); // COMMIT TRANSACTION
