@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -95,13 +96,12 @@ public class FilmController {
 	// This method sends it to the update page.
 
 	@RequestMapping(path = "updateFilm.do", method = RequestMethod.POST)
-	public ModelAndView updateFilm(int id, String title, String description, Integer releaseYear, int rentalDuration,
+	public ModelAndView updateFilm(@RequestParam ("id") int id, String title, String description, Integer releaseYear, int rentalDuration,
 			double rentalRate, Integer length, double replacementCost, String rating, String specialFeatures,
 			RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 
-		Film film = new Film();
-		film.setId(id);
+		Film film = filmDao.findFilmById(id);
 		film.setTitle(title);
 		film.setDescription(description);
 		film.setReleaseYear(releaseYear);

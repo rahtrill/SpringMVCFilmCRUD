@@ -16,9 +16,14 @@
 			<ul>
 				<li>${ film.title}</li>
 				<li>${ film.description}</li>
+				<li>${ film.releaseYear}</li>
 				<li>${ film.languageId}</li>
+				<li>${ film.rentalDuration}</li>
 				<li>${ film.rentalRate}</li>
 				<li>${ film.length}</li>
+				<li>${ film.replacementCost}</li>
+				<li>${ film.rating}</li>
+				<li>${ film.specialFeatures}</li>
 
 			</ul>
 			
