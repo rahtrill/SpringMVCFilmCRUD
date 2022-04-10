@@ -98,9 +98,9 @@ public class FilmController {
 	// This method sends it to the update page.
 
 	@RequestMapping(path = "updateFilm.do", method = RequestMethod.POST)
-	public ModelAndView updateFilm(@RequestParam ("id") int id, String title, String description, Integer releaseYear, int rentalDuration,
-			double rentalRate, Integer length, double replacementCost, String rating, String specialFeatures,
-			RedirectAttributes redir) {
+	public ModelAndView updateFilm(@RequestParam("id") int id, String title, String description, Integer releaseYear,
+			int rentalDuration, double rentalRate, Integer length, double replacementCost, String rating,
+			String specialFeatures, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 
 		Film film = filmDao.findFilmById(id);
@@ -157,7 +157,7 @@ public class FilmController {
 	@RequestMapping(path = "filmDeleted.do", method = RequestMethod.GET)
 	public ModelAndView filmDeleted(Film film) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		mv.addObject("film", film);
 		mv.setViewName("WEB-INF/delete.jsp");
 
