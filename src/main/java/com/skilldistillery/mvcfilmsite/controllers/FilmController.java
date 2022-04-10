@@ -7,15 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 387025052e70970eb152bdcea3f44b9a5ca32fad
->>>>>>> 3280c8efa1951cd5a6fadedddd16281a20856f9e
 import com.skilldistillery.mvcfilmsite.data.FilmDAO;
 import com.skilldistillery.mvcfilmsite.entities.Film;
 
@@ -64,6 +57,22 @@ public class FilmController {
 		return mv;
 	}
 
+
+
+	// This method sends it to the HTML search page.
+	@RequestMapping(path = "filmUpdatePage.do", method = RequestMethod.GET)
+	public ModelAndView sendToUpdate(int id) {
+		ModelAndView mv = new ModelAndView();
+		
+		Film film = filmDao.findFilmById(id);
+		
+		mv.addObject("film", film);
+		mv.setViewName("update.jsp");
+		
+		return mv;
+	}
+	// This method sends it to the update page.
+
 	@RequestMapping(path = "updateFilm.do", method = RequestMethod.POST)
 	public ModelAndView updateFilm(Film film, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
@@ -111,11 +120,11 @@ public class FilmController {
 		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("WEB-INF/result.jsp");
-<<<<<<< HEAD
 
-=======
+
+
 		
->>>>>>> 3280c8efa1951cd5a6fadedddd16281a20856f9e
+
 		return mv;
 	}
 }
