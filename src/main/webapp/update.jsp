@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<form action="updatedFilm.do" method="POST">
+	<form action="updateFilm.do" method="POST">
 
 		<h1>Update a Film</h1>
 
