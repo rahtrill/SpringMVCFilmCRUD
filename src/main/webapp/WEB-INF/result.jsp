@@ -17,13 +17,15 @@
 				<li>Title: ${ film.title}</li>
 				<li>Description: ${ film.description}</li>
 				<li>Release Year: ${ film.releaseYear}</li>
-				<li>Language ID: ${ film.languageId}</li>
+				<li>${ film.languageList}</li>
 				<li>Rental Duration: ${ film.rentalDuration}</li>
 				<li>Rental Rate: ${ film.rentalRate}</li>
 				<li>Film Length: ${ film.length}</li>
 				<li>Replacement Cost: ${ film.replacementCost}</li>
 				<li>Rating: ${ film.rating}</li>
 				<li>Special Features: ${ film.specialFeatures}</li>
+				<li>Cast: ${ film.actorList}</li>
+				
 
 			</ul>
 			
