@@ -53,6 +53,19 @@ public class FilmController {
 		
 		return mv;
 	}
+	// This method sends it to the HTML search page.
+	@RequestMapping(path = "filmUpdatePage.do", method = RequestMethod.GET)
+	public ModelAndView sendToUpdate(int id) {
+		ModelAndView mv = new ModelAndView();
+		
+		Film film = filmDao.findFilmById(id);
+		
+		mv.addObject("film", film);
+		mv.setViewName("update.jsp");
+		
+		return mv;
+	}
+	// This method sends it to the update page.
 	@RequestMapping(path = "updateFilm.do", method = RequestMethod.POST)
 	public ModelAndView updateFilm(Film film, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
