@@ -163,12 +163,13 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				int languageId = fm.getLanguageId();
 				fm.setActorList(findActorsByFilmId(filmId));
 				fm.setLanguageList(languageFromId(languageId));
-				filmList.add(fm);
-				System.out.println("Title: " + fm.getTitle() + ", Release Year: " + fm.getReleaseYear() + ", Rating: "
-						+ fm.getRating() + ", Descripton: " + fm.getDescription());
-				System.out.println(fm.getLanguageList());
-				System.out.println("Cast: " + fm.getActorList());
-				System.out.println();
+
+//				System.out.println("Title: " + fm.getTitle() + ", Release Year: " + fm.getReleaseYear() + ", Rating: "
+//						+ fm.getRating() + ", Descripton: " + fm.getDescription());
+//				System.out.println(fm.getLanguageList());
+//				System.out.println("Cast: " + fm.getActorList());
+//				System.out.println();
+
 			}
 			rs.close();
 			stmt.close();
