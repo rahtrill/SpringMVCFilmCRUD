@@ -7,10 +7,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-
 import com.skilldistillery.mvcfilmsite.data.FilmDAO;
 import com.skilldistillery.mvcfilmsite.entities.Film;
+
+//String title;
+//private String description;
+//private Integer releaseYear;
+//private int languageId;
+//private int rentalDuration;
+//private double rentalRate;
+//private Integer length;
+//private double replacementCost;
+//private String rating;
+//String specialFeatures;
 
 @Controller
 public class FilmController {
@@ -46,8 +55,22 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "addFilm.do", method = RequestMethod.POST)
-	public ModelAndView createFilm(Film film, RedirectAttributes redir) {
+	public ModelAndView createFilm(String title, String description, Integer releaseYear, int languageId,
+			int rentalDuration, double rentalRate, Integer length, double replacementCost, String rating,
+			String specialFeatures, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
+
+		Film film = new Film();
+		film.setTitle(title);
+		film.setDescription(description);
+		film.setReleaseYear(releaseYear);
+		film.setLanguageId(languageId);
+		film.setRentalDuration(rentalDuration);
+		film.setRentalRate(rentalRate);
+		film.setLength(length);
+		film.setReplacementCost(replacementCost);
+		film.setRating(rating);
+		film.setSpecialFeatures(specialFeatures);
 
 		filmDao.createFilm(film);
 
@@ -57,26 +80,41 @@ public class FilmController {
 		return mv;
 	}
 
-
-
 	// This method sends it to the HTML search page.
 	@RequestMapping(path = "filmUpdatePage.do", method = RequestMethod.GET)
 	public ModelAndView sendToUpdate(int id) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		Film film = filmDao.findFilmById(id);
-		
+
 		mv.addObject("film", film);
 		mv.setViewName("update.jsp");
-		
+
 		return mv;
 	}
 	// This method sends it to the update page.
 
 	@RequestMapping(path = "updateFilm.do", method = RequestMethod.POST)
-	public ModelAndView updateFilm(Film film, RedirectAttributes redir) {
+	public ModelAndView updateFilm(int id, String title, String description, Integer releaseYear, int rentalDuration,
+			double rentalRate, Integer length, double replacementCost, String rating, String specialFeatures,
+			RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 
+		Film film = new Film();
+		film.setId(id);
+		film.setTitle(title);
+		film.setDescription(description);
+		film.setReleaseYear(releaseYear);
+		film.setRentalDuration(rentalDuration);
+		film.setRentalRate(rentalRate);
+		film.setLength(length);
+		film.setReplacementCost(replacementCost);
+		film.setRating(rating);
+		film.setSpecialFeatures(specialFeatures);
+	
+
+		
+		
 		filmDao.updateFilm(film);
 
 		redir.addFlashAttribute("film", film);
@@ -120,10 +158,6 @@ public class FilmController {
 		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("WEB-INF/result.jsp");
-
-
-
-		
 
 		return mv;
 	}
