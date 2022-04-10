@@ -6,11 +6,11 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Film Display</title>
+<title>Deleted Film Display</title>
 </head>
 <body>
 
-	<h1>Film Display</h1>
+	<h1>The Following Film Has Been Deleted:</h1>
 	<c:choose>
 		<c:when test="${! empty film }">
 			<ul>
@@ -26,29 +26,6 @@
 				<li>${ film.specialFeatures}</li>
 
 			</ul>
-			
-			<form action="filmUpdatePage.do" method="GET">
-					<input type="hidden" name="id" value="${film.id}">
-					<input type="submit" name="submit" value="Update Film">
-				</form>
-				
-					<c:choose>
-	
-			<c:when test="${film.id <= 1000}">
-				<br>
-				<br>
-				Cannot delete this film
-			</c:when>
-	
-			<c:otherwise> 
-				<form action="deleteFilm.do" method="POST">
-					<input type="hidden" name="id" value="${film.id}">
-					<input type="submit" name="submit" value="Delete Film">
-				</form>
-			</c:otherwise>
-
-	</c:choose>
-
 
 		</c:when>
 		<c:otherwise>

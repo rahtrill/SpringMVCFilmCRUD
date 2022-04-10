@@ -56,8 +56,8 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "addFilm.do", method = RequestMethod.POST)
-	public ModelAndView createFilm(String title, String description, Integer releaseYear, int languageId,
-			int rentalDuration, double rentalRate, Integer length, double replacementCost, String rating,
+	public ModelAndView createFilm(String title, String description, int releaseYear, int languageId,
+			int rentalDuration, double rentalRate, int length, double replacementCost, String rating,
 			String specialFeatures, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 
@@ -134,7 +134,7 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "filmAdded.do", method = RequestMethod.GET)
-	public ModelAndView filmAdded(Film film) {
+	public ModelAndView filmAdded() {
 
 		ModelAndView mv = new ModelAndView();
 
@@ -155,8 +155,9 @@ public class FilmController {
 	@RequestMapping(path = "filmDeleted.do", method = RequestMethod.GET)
 	public ModelAndView filmDeleted(Film film) {
 		ModelAndView mv = new ModelAndView();
-
-		mv.setViewName("WEB-INF/result.jsp");
+		
+		mv.addObject("film", film);
+		mv.setViewName("WEB-INF/delete.jsp");
 
 		return mv;
 	}
