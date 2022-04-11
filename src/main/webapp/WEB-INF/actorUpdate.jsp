@@ -20,7 +20,7 @@
 		<h1>Update an Actor</h1>
 	<c:choose>
 	
-	<c:when test="">
+	<c:when test="${! empty actor}">
 	
 	<form action="updateActor.do" method="POST">
 
