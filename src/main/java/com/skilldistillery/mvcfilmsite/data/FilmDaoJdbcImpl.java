@@ -131,6 +131,48 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		}
 		return actorList;
 	}
+	
+
+	public List<Film> findFilmsByActorId(int actorId) {
+		List<Film> filmList = new ArrayList<>();
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			String sqltxt;
+			sqltxt = "SELECT * FROM film JOIN film_actor fa ON film.id = fa.film_id JOIN actor a ON a.id = fa.actor_id WHERE fa.actor_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sqltxt);
+			stmt.setInt(1, actorId);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Film film = new Film();
+				film.setId(rs.getInt("id"));
+				film.setTitle(rs.getString("title"));
+				film.setDescription(rs.getString("description"));
+				film.setReleaseYear(rs.getInt("release_year"));
+				film.setLanguageId(rs.getInt("language_id"));
+				film.setRentalRate(rs.getDouble("rental_rate"));
+				film.setLength(rs.getInt("length"));
+				film.setReplacementCost(rs.getDouble("replacement_cost"));
+				film.setRating(rs.getString("rating"));
+				film.setSpecialFeatures(rs.getString("special_features"));
+				int filmId = film.getId();
+				int languageId = film.getLanguageId();
+				film.setActorList(findActorsByFilmId(filmId));
+				film.setLanguageList(languageFromId(languageId));
+				
+				filmList.add(film);
+			}
+			rs.close();
+			stmt.close();
+			conn.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Invalid Response");
+		}
+		return filmList;
+	}
 
 	public List<Film> findFilmByKeyword(String input) {
 		Film fm = null;
@@ -334,6 +376,135 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 
 			int updateCount = stmt.executeUpdate();
 			sql = "DELETE FROM film WHERE id = ?";
+
+			stmt = conn.prepareStatement(sql);
+
+			stmt.setInt(1, id);
+			updateCount = stmt.executeUpdate();
+			conn.commit(); // COMMIT TRANSACTION
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+	
+	// ACTOR STUFF
+	
+	public Actor createActor(Actor actor) {
+		
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false);
+			String sql = "INSERT INTO actor "
+					+ " (first_name, last_name) "
+					+ "VALUES (?, ?)";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			stmt.setString(1, actor.getFirstName());
+			stmt.setString(2, actor.getLastName());
+
+			int updateCount = stmt.executeUpdate();
+			if (updateCount == 1) {
+				ResultSet rs = stmt.getGeneratedKeys();
+				if (rs.next()) {
+					actor.setId(rs.getInt(1));
+				}
+				rs.close();
+			}
+			conn.commit();
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			actor = null;
+		}
+
+		return actor;
+	}
+	
+	@Override
+	public boolean updateActor(Actor actor) {
+
+		Connection conn = null;
+
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false);
+
+			String sql = "UPDATE actor SET first_name = ?, last_name = ?"
+					+ " WHERE id= ?";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+
+			stmt.setString(1, actor.getFirstName());
+			stmt.setString(2, actor.getLastName());
+			stmt.setInt(3, actor.getId());
+
+			int updateCount = stmt.executeUpdate();
+			if (updateCount == 1) {
+
+				sql = "DELETE FROM film_actor WHERE actor_id = ?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, actor.getId());
+				System.out.println(actor.getId());
+
+				updateCount = stmt.executeUpdate();
+				sql = "INSERT INTO film_actor (film_id, actor_id) VALUES (?,?)";
+				stmt = conn.prepareStatement(sql);
+
+				actor.setFilms(findFilmsByActorId(actor.getId()));
+				
+				for (Film film : actor.getFilms()) {
+					stmt.setInt(1, film.getId());
+					stmt.setInt(2, actor.getId());
+					updateCount = stmt.executeUpdate();
+				}
+				conn.commit(); // COMMIT TRANSACTION
+			}
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} // ROLLBACK TRANSACTION ON ERROR
+				catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			return false;
+		}
+
+		return true;
+	}
+	
+	@Override
+	public boolean deleteActor(int id) {
+
+		// Use if statement to determine if film id is less than 100 tio
+
+		Connection conn = null;
+		try {
+
+			conn = DriverManager.getConnection(URL, user, pass);
+
+			conn.setAutoCommit(false);
+
+			String sql = "DELETE FROM film_actor WHERE actor_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+
+			stmt.setInt(1, id);
+
+			int updateCount = stmt.executeUpdate();
+			sql = "DELETE FROM actor WHERE id = ?";
 
 			stmt = conn.prepareStatement(sql);
 
