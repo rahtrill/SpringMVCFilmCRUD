@@ -23,6 +23,10 @@ public interface FilmDAO {
 	
 	public boolean deleteFilm(int id);
 	
+	public Actor createActor(Actor actor);
 	
+	public boolean updateActor(Actor actor);
+	
+	public boolean deleteActor(int id);
 	
 }

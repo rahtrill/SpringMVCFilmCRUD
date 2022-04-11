@@ -35,6 +35,15 @@
 					<input type="hidden" name="id" value="${film.id}">
 					<input type="submit" name="submit" value="Update Film">
 				</form>
+			<br>
+				
+			Add an actor to this film:
+			<br>
+			<form action="addActorToFilm.do" method="GET">
+					<input type="hidden" name="id" value="${film.id}">
+					Actor ID: <input type="text" name="actorId">
+					<input type="submit" name="submit" value="Add An Actor">
+			</form>
 				
 					<c:choose>
 	
@@ -44,6 +53,7 @@
 				Cannot delete this film
 			</c:when>
 	
+			<br>
 			<c:otherwise> 
 				<form action="deleteFilm.do" method="POST">
 					<input type="hidden" name="id" value="${film.id}">

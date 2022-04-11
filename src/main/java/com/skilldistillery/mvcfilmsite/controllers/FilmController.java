@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.skilldistillery.mvcfilmsite.data.FilmDAO;
+import com.skilldistillery.mvcfilmsite.entities.Actor;
 import com.skilldistillery.mvcfilmsite.entities.Film;
 
 //String title;
@@ -163,4 +164,118 @@ public class FilmController {
 
 		return mv;
 	}
+	
+	//ACTOR STUFF
+	
+	@RequestMapping(path = "findActorByID.do", method = RequestMethod.GET)
+	public ModelAndView findActorByID(int id) {
+		ModelAndView mv = new ModelAndView();
+
+		Actor actor = filmDao.findActorById(id);
+		mv.addObject("actor", actor);
+		mv.setViewName("WEB-INF/actorResult.jsp");
+
+		return mv;
+	}
+	
+	@RequestMapping(path = "addActor.do", method = RequestMethod.POST)
+	public ModelAndView createActor(String firstName, String lastName, RedirectAttributes redir) {
+		ModelAndView mv = new ModelAndView();
+
+		Actor actor = new Actor();
+		actor.setFirstName(firstName);
+		actor.setLastName(lastName);
+
+		filmDao.createActor(actor); // TODO: Create createActor() in DAO
+
+		redir.addFlashAttribute("actor", actor);
+		mv.setViewName("redirect:actorAdded.do");
+
+		return mv;
+	}
+	
+	@RequestMapping(path = "actorAdded.do", method = RequestMethod.GET)
+	public ModelAndView actorAdded() {
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName("WEB-INF/actorResult.jsp");
+
+		return mv;
+	}
+	
+	@RequestMapping(path = "deleteActor.do", method = RequestMethod.POST)
+	public ModelAndView deleteActor(int id, RedirectAttributes redir) {
+		ModelAndView mv = new ModelAndView();
+
+		Actor actor = filmDao.findActorById(id);
+		filmDao.deleteActor(id); // TODO: Create deleteActor() in DAO
+
+		redir.addFlashAttribute("actor", actor);
+		mv.setViewName("redirect:filmDeleted.do");
+
+		return mv;
+	}
+	
+	@RequestMapping(path = "actorDeleted.do", method = RequestMethod.GET)
+	public ModelAndView actorDeleted() {
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName("WEB-INF/actorDelete.jsp");
+
+		return mv;
+	}
+	
+	// This method sends it to the HTML search page.
+		@RequestMapping(path = "actorUpdatePage.do", method = RequestMethod.GET)
+		public ModelAndView sendToActorUpdate(int id) {
+			ModelAndView mv = new ModelAndView();
+
+			Actor actor = filmDao.findActorById(id);
+
+			mv.addObject("actor", actor);
+			mv.setViewName("WEB-INF/actorUpdate.jsp");
+
+			return mv;
+		}
+		
+		// This method sends it to the update page.
+
+		@RequestMapping(path = "updateActor.do", method = RequestMethod.POST)
+		public ModelAndView updateActor(@RequestParam("id") int id, String firstName, String lastName, RedirectAttributes redir) {
+			ModelAndView mv = new ModelAndView();
+
+			Actor actor = filmDao.findActorById(id);
+			actor.setFirstName(firstName);
+			actor.setLastName(lastName);
+			
+			filmDao.updateActor(actor); // TODO: Create updateActor() in DAO
+
+			redir.addFlashAttribute("actor", actor);
+			mv.setViewName("redirect:actorUpdated.do");
+
+			return mv;
+		}
+		
+		@RequestMapping(path = "actorUpdated.do", method = RequestMethod.GET)
+		public ModelAndView actorUpdated() {
+			ModelAndView mv = new ModelAndView();
+
+			mv.setViewName("WEB-INF/actorResult.jsp");
+
+			return mv;
+		}
+		
+		@RequestMapping(path = "addActorToFilm.do", method = RequestMethod.POST)
+		public ModelAndView addActorToFilm(int actorId, int id, RedirectAttributes redir) {
+			ModelAndView mv = new ModelAndView();
+
+			Actor actor = filmDao.findActorById(actorId);
+			filmDao.addActorToFilm(actorId, id);
+
+			redir.addFlashAttribute("actor", actor);
+			mv.setViewName("redirect:actorAddedToFilm.do");
+
+			return mv;
+		}
 }
