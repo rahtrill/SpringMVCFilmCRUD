@@ -212,7 +212,7 @@ public class FilmController {
 		filmDao.deleteActor(id); // TODO: Create deleteActor() in DAO
 
 		redir.addFlashAttribute("actor", actor);
-		mv.setViewName("redirect:filmDeleted.do");
+		mv.setViewName("redirect:actorDeleted.do");
 
 		return mv;
 	}
@@ -271,10 +271,21 @@ public class FilmController {
 			ModelAndView mv = new ModelAndView();
 
 			Actor actor = filmDao.findActorById(actorId);
+			Film film = filmDao.findFilmById(id);
 			filmDao.addActorToFilm(actorId, id);
 
 			redir.addFlashAttribute("actor", actor);
+			redir.addFlashAttribute("film", film);
 			mv.setViewName("redirect:actorAddedToFilm.do");
+
+			return mv;
+		}
+		
+		@RequestMapping(path = "actorAddedToFilm.do", method = RequestMethod.GET)
+		public ModelAndView actorAddedToFilm() {
+			ModelAndView mv = new ModelAndView();
+
+			mv.setViewName("WEB-INF/actorAddedResult.jsp");
 
 			return mv;
 		}

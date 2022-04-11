@@ -11,8 +11,11 @@
 
 </head>
 <body>
-<h1 ><a href="index.html" id="id" >MVC Home Directory</a></h1>
-
+<h1>
+		<a href="index.html" id="id">MVC Film Directory</a>
+	</h1>
+	<br>
+	<br>
 
 	<h1>Film Display</h1>
 	<c:choose>
@@ -41,39 +44,39 @@
 				
 			Add an actor to this film:
 			<br>
-			<form action="addActorToFilm.do" method="GET">
+			<form action="addActorToFilm.do" method="POST">
 					<input type="hidden" name="id" value="${film.id}">
 					Actor ID: <input type="text" name="actorId">
 					<input type="submit" name="submit" value="Add An Actor">
 			</form>
 				
-					<c:choose>
+		<c:choose>
+		
+				<c:when test="${film.id <= 1000}">
+					<br>
+					<br>
+					Cannot delete this film
+				</c:when>
+		
+				<c:otherwise> 
+				<br>
+					<form action="deleteFilm.do" method="POST">
+						<input type="hidden" name="id" value="${film.id}">
+						<input type="submit" name="submit" value="Delete Film">
+					</form>
+				</c:otherwise>
 	
-			<c:when test="${film.id <= 1000}">
-				<br>
-				<br>
-				Cannot delete this film
+		</c:choose>
+	
+	
 			</c:when>
+			<c:otherwise>
+				<p>No film found</p>
+				<br>
+				<p>Please try again</p>
 	
-			<br>
-			<c:otherwise> 
-				<form action="deleteFilm.do" method="POST">
-					<input type="hidden" name="id" value="${film.id}">
-					<input type="submit" name="submit" value="Delete Film">
-				</form>
+	
 			</c:otherwise>
-
-	</c:choose>
-
-
-		</c:when>
-		<c:otherwise>
-			<p>No film found</p>
-			<br>
-			<p>Please try again</p>
-
-
-		</c:otherwise>
 
 	</c:choose>
 

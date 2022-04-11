@@ -6,7 +6,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Deleted Actor Display</title>
+<title>Actor Added To Film Display</title>
 <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -17,12 +17,13 @@
 	<br>
 	<br>
 
-	<h1>The Following Actor Has Been Deleted:</h1>
+	<h1>The Following Actor Has Been Added to ${film.title}:</h1>
 	<c:choose>
 		<c:when test="${! empty actor }">
 			<ul>
-				<li>${actor.id}</li>
-				<li>${actor.fullName}</li>
+				<li>Actor ID: ${ actor.id}</li>
+				<li>Actor Name: ${actor.fullName}</li>
+
 			</ul>
 
 		</c:when>

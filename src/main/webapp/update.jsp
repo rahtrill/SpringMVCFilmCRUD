@@ -10,15 +10,21 @@
 <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-
-<h1 ><a href="index.html" id="id" >MVC Home Directory</a></h1>
+<h1>
+		<a href="index.html" id="id">MVC Film Directory</a>
+	</h1>
+	<br>
+	<br>
 
 	<form action="updateFilm.do" method="POST">
 
 		<h1>Update a Film</h1>
 		
-		
-		Change any of the following fields of your film:
+<c:choose>
+
+<c:when test="${! empty film}"> 
+
+Change any of the following fields of your film:
 		
 		<br>
 		
@@ -49,5 +55,19 @@
 
 	</form>
 
+
+</c:when>
+
+<c:otherwise>
+
+This film does not exist.
+
+Please try again.
+
+</c:otherwise>
+
+</c:choose>		
+		
+		
 </body>
 </html>

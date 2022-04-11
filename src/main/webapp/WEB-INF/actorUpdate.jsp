@@ -11,9 +11,19 @@
 </head>
 <body>
 
+<h1>
+		<a href="index.html" id="id">MVC Film Directory</a>
+	</h1>
+	<br>
+	<br>
+	
+		<h1>Update an Actor</h1>
+	<c:choose>
+	
+	<c:when test="">
+	
 	<form action="updateActor.do" method="POST">
 
-		<h1>Update an Actor</h1>
 		
 		
 		Change any of the following fields of your actor:
@@ -32,6 +42,18 @@
 		<input type="submit" value="submit" />
 
 	</form>
+	
+	</c:when>
+	<c:otherwise>
+	
+	Actor does not exist.
+	
+	Please try again.
+	
+	</c:otherwise>
+	
+	</c:choose>
+
 
 </body>
 </html>

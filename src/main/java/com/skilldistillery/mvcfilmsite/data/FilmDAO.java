@@ -29,4 +29,6 @@ public interface FilmDAO {
 	
 	public boolean deleteActor(int id);
 	
+	public boolean addActorToFilm(int actorId, int filmId);
+	
 }

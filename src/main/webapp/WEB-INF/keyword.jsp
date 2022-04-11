@@ -11,9 +11,11 @@
 
 </head>
 <body>
-<h1 ><a href="index.html" id="id" >MVC Home Directory</a></h1>
-
-
+<h1>
+		<a href="index.html" id="id">MVC Film Directory</a>
+	</h1>
+	<br>
+	<br>
 	<h1>Films:</h1>
 	
 	<c:choose>

@@ -11,7 +11,11 @@
 
 </head>
 <body>
-
+<h1>
+		<a href="index.html" id="id">MVC Film Directory</a>
+	</h1>
+	<br>
+	<br>
 	<h1>Actor Display</h1>
 	<c:choose>
 		<c:when test="${! empty actor }">
