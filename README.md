@@ -56,7 +56,7 @@ This was also our first project where we implemented a full stack program. Tying
 
 **Rahil Ali**
 Student at Skill Distillery
-LinkedIn - https://www.linkedin.com/in/rahil-ali-35b480224/
+LinkedIn - https://www.linkedin.com/in/rahil-ali-35b480224
 GitHub - https://github.com/rahtrill
 
 **Zack Gaddy**
