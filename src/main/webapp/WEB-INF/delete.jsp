@@ -11,6 +11,10 @@
 </head>
 <body>
 
+<h1 ><a href="index.html" id="id" >MVC Home Directory</a></h1>
+
+
+
 	<h1>The Following Film Has Been Deleted:</h1>
 	<c:choose>
 		<c:when test="${! empty film }">

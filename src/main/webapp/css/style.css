@@ -1,29 +1,40 @@
+#id {
+	font-size: 32px;
+	font-weight: bold;
+	color: red;
+	text-align: center;
+	text-decoration: none;
+	border-style: double;
+	border-color: black;
+	
+}
+
 body {
 	background: #efefef;
 	background-image: url("../images/pexels-henry-&-co-1939485.jpg");
 	font-family: arial;
 	text-align: center;
-	
 }
-h1{
+
+ h1 {
 	font-size: 20px;
 	color: Darkblue;
-}
-a{
-	color:#000000;
+} 
+
+a {
+	color: #000000;
 	text-decoration: underline;
 	text-align: center;
-}
+	}
+
 a:hover {
 	color: #000000;
 	text-decoration: none;
 }
-h2{
+
+h2 {
 	font-size: 18px;
 	color: Darkblue;
-}
-p{
-	font-size: 15px;
 }
 
 .starter {
