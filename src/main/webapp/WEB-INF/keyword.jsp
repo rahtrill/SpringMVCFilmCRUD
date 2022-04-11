@@ -7,16 +7,31 @@
 
 <meta charset="UTF-8">
 <title>Keyword Film Display</title>
+<link rel="stylesheet" href="css/style.css"/>
+
 </head>
 <body>
 
 	<h1>Films:</h1>
 	
+	<c:choose>
+	
+	<c:when test="${! empty film}">
 		<ul>
-	<c:forEach var="f" items="${film}">
-			<li><p><a href="findByID.do?id=${f.id}">ID: ${f.id} Title: ${f.title} Description: ${f.description} </a></p></li>
-	</c:forEach>
+			<c:forEach var="f" items="${film}">
+					<li><p><a href="findByID.do?id=${f.id}" class ="keyword">ID: ${f.id} Title: ${f.title} </a></p></li>
+			</c:forEach>
 		</ul>
+	
+	</c:when>
+	
+	<c:otherwise>
+	
+		<h2>No film found matching your search.</h2>
+	
+	</c:otherwise>
+	
+	</c:choose>
 	
 </body>
 </html>

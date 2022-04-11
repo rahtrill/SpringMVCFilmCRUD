@@ -7,6 +7,8 @@
 
 <meta charset="UTF-8">
 <title>Film Display</title>
+<link rel="stylesheet" href="css/style.css"/>
+
 </head>
 <body>
 
